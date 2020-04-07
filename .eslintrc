@@ -1,0 +1,27 @@
+{
+  "extends": "loopback",
+  "rules": {
+    "comma-dangle": ["error", "never"],
+<<<<<<< HEAD
+<<<<<<< HEAD
+    "object-curly-spacing": ["error", "always"]
+  }
+}
+=======
+    "object-curly-spacing": ["error", "always"],
+    "indent": [
+      2, 2,
+      { "SwitchCase": 1 }
+    ]
+  }
+}
+>>>>>>> a6a7d780ef4aa524572d398b41ad74ee5118637a
+=======
+    "object-curly-spacing": ["error", "always"],
+    "indent": [
+      2, 2,
+      { "SwitchCase": 1 }
+    ]
+  }
+}
+>>>>>>> c5d8582... Add eslint rules.

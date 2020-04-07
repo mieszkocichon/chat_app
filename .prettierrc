@@ -1,0 +1,17 @@
+{
+  "singleQuote": true,
+  "tabWidth": 2,
+  "noMultiSpaces": true,
+  "rules": {
+    "commaDangle": [
+      2,
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "ignore"
+      }
+    ]
+  }
+}

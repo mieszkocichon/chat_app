@@ -1,0 +1,139 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.sidebar {
+  background: #fff;
+  float: left;
+  width: 300px;
+  max-width: 25%;
+  height: 100vh;
+  border-right: 1px solid #ddd;
+  position: fixed;
+  top: 0px;
+}
+
+.main-view {
+  position: fixed;
+  left: 300px;
+  background: #fafafa;
+  background-color: #fafafa;
+  height: 100vh;
+  width: calc(100% - 300px);
+  top: 0;
+  overflow: hidden;
+  overflow-y: scroll;
+  padding-bottom: 10px;
+}
+
+.btn-send {
+  position: absolute;
+  z-index: 9;
+  right: 10px;
+  width: 40px;
+  bottom: 0;
+}
+
+ul.thread-list {
+  list-style: none;
+  padding: 0px;
+}
+
+ul.thread-list li a .zmdi {
+  float: left;
+  font-size: 48px;
+  padding: 5px 15px;
+  color: #ccc;
+}
+
+ul.thread-list li a {
+  text-decoration: none;
+  color: #444;
+}
+
+ul.thread-list li a h5 {
+  font-size: 14px;
+  padding: 10px;
+  font-weight: 700;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+ul.thread-list li a p {
+  font-size: 14px;
+  color: #999;
+}
+
+ul.thread-list label {
+  padding-left: 20px;
+  font-size: 12px;
+  color: #aaa;
+  padding-top: 10px;
+}
+
+.input-view {
+  position: fixed;
+  left: 300px;
+  width: 100%;
+  bottom: 0px;
+  width: calc(100% - 300px);
+  box-shadow: 0px - 1px 5px rgba(0, 0, 0, .2);
+}
+
+.input-view .form-control {
+  border: none;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  font-size: 14px;
+  padding: 10px;
+  height: auto;
+}
+
+.message-item {
+  padding: 10px;
+}
+
+.message-item.msg-right {
+  text-align: right;
+}
+
+.message-item .zmdi.zmdi-account-circle {
+  float: left;
+  margin-top: 5px;
+  font-size: 32px;
+  color: #aaa;
+  margin-left: 0px;
+  margin-right: 5px;
+}
+
+.message-item.msg-right .zmdi.zmdi-account-circle {
+  float: right;
+  margin-left: 5px;
+  margin-right: 0px;
+}
+
+.message-item .chat-bubble { 
+  max-width: 600px;
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background: #ddd;
+  margin: 0px 5px;
+  padding-top: 4px;
+}
+
+.message-item.msg-right .chat-bubble {
+  background: #1d8ff1;
+  color: #fff;
+}
