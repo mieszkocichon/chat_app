@@ -1,19 +1,26 @@
 'use strict';
 
 const PerformanceStats = require('../../performance');
-
-const fuseState = {
-  OPEN: 'open',
-  SELF_OPEN: 'self_open',
-  CLOSE: 'close'
-};
+const FuseState = require('./FuseStateObject');
 
 class Fuse {
-  constructor({ low, hard }) {
-    this.systemState = fuseState.OPEN;
+  constructor({ low = 70, hight = 90 }) {
+    this.systemState = FuseState.OPEN;
     this.lastDate = Date.now();
     this.low = low;
-    this.hard = hard;
+    this.hight = hight;
+  }
+
+  getSystemState() {
+    return this.systemState;
+  }
+
+  getLow() {
+    return this.low;
+  }
+
+  getHight() {
+    return this.hight;
   }
 
   calculateMachinePerformance() {
@@ -25,15 +32,15 @@ class Fuse {
 
     this.lastDate = Date.now();
     if (cpuPercent < this.low) {
-      this.systemState = fuseState.OPEN;
+      this.systemState = FuseState.OPEN;
 
       return this.systemState;
-    } else if (cpuPercent >= this.low + 1 && cpuPercent < this.hard) {
-      this.systemState = fuseState.SELF_OPEN;
+    } else if (cpuPercent >= this.low + 1 && cpuPercent < this.hight) {
+      this.systemState = FuseState.SELF_OPEN;
 
       return this.systemState;
-    } else if (cpuPercent > this.hard + 1) {
-      this.systemState = fuseState.CLOSE;
+    } else if (cpuPercent > this.hight + 1) {
+      this.systemState = FuseState.CLOSE;
 
       return this.systemState;
     } else {
@@ -42,13 +49,21 @@ class Fuse {
   }
 
   static taskManager({ state, task, attemptsQuantity = 3 }) {
-    if (state === fuseState.OPEN) {
+
+    if (attemptsQuantity < 1 || attemptsQuantity > 10) {
+      return {
+        message: 'error',
+        status: -1
+      }
+    }
+
+    if (state === FuseState.OPEN) {
       task;
       return {
         message: 'success',
         status: 0
       };
-    } else if (state === fuseState.SELF_OPEN && attemptsQuantity > 0) {
+    } else if (state === FuseState.SELF_OPEN && attemptsQuantity > 0) {
       setTimeout(function() {
         Fuse.taskManager({
           state,
@@ -56,7 +71,7 @@ class Fuse {
           attemptsQuantity: attemptsQuantity - 1
         });
       }, 1000);
-    } else if (state === fuseState.CLOSE) {
+    } else if (state === FuseState.CLOSE) {
       return {
         message: 'error',
         satus: -1

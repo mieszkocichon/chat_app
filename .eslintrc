@@ -1,27 +1,20 @@
 {
-  "extends": "loopback",
+  "plugins": ["jest"],
+  "extends": ["loopback", "plugin:jest/all", "prettier"],
   "rules": {
-    "comma-dangle": ["error", "never"],
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "object-curly-spacing": ["error", "always"]
-  }
-}
-=======
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error",
     "object-curly-spacing": ["error", "always"],
     "indent": [
       2, 2,
       { "SwitchCase": 1 }
+    ],
+    "max-len": [
+      "error", 
+      { "code": 120 }
     ]
   }
 }
->>>>>>> a6a7d780ef4aa524572d398b41ad74ee5118637a
-=======
-    "object-curly-spacing": ["error", "always"],
-    "indent": [
-      2, 2,
-      { "SwitchCase": 1 }
-    ]
-  }
-}
->>>>>>> c5d8582... Add eslint rules.

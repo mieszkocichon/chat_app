@@ -2,7 +2,7 @@
 
 const os = require('os');
 
-const PerformanceStats = (function(NUMBER_OF_CPUS, st, su) {
+const PerformanceStats = (function (NUMBER_OF_CPUS, st, su) {
   let startTime = st;
   let startUsage = su;
   const now = Date.now();
@@ -33,7 +33,7 @@ const PerformanceStats = (function(NUMBER_OF_CPUS, st, su) {
     elapTimeMS,
     elapUserMS,
     elapSystMS,
-    cpuPercent
+    cpuPercent,
   };
 })(os.cpus().length, process.hrtime(), process.cpuUsage());
 

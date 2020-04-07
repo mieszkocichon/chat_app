@@ -17,7 +17,7 @@ module.exports = class Events {
           username: name,
           password: '123123123',
           email,
-          name
+          name,
         };
 
         models.User.findOrCreate(
@@ -33,7 +33,7 @@ module.exports = class Events {
 
       const clients = processEmitter.clients;
       clients.map((c, i) => {
-        if (c => c.ws._closeCode === request) {
+        if ((c) => c.ws._closeCode === request) {
           clientIndex = i;
         }
       });
@@ -52,67 +52,67 @@ module.exports = class Events {
       if (parsed) {
         match(parsed.type)
           .on(
-            x => x === 'SIGNUP',
+            (x) => x === 'SIGNUP',
             () =>
               processEmitter.fuseTaskManager({
-                task: processEmitter.emit('sign_up', { ws, data: parsed.data })
+                task: processEmitter.emit('sign_up', { ws, data: parsed.data }),
               })
           )
           .on(
-            x => x === 'CONNECT_WITH_TOKEN',
+            (x) => x === 'CONNECT_WITH_TOKEN',
             () =>
               processEmitter.fuseTaskManager({
                 task: processEmitter.emit('connect_with_token', {
                   ws,
-                  data: parsed.data
-                })
+                  data: parsed.data,
+                }),
               })
           )
           .on(
-            x => x === 'LOGIN',
+            (x) => x === 'LOGIN',
             () =>
               processEmitter.fuseTaskManager({
-                task: processEmitter.emit('login', { ws, data: parsed.data })
+                task: processEmitter.emit('login', { ws, data: parsed.data }),
               })
           )
           .on(
-            x => x === 'SEARCH',
+            (x) => x === 'SEARCH',
             () =>
               processEmitter.fuseTaskManager({
-                task: processEmitter.emit('search', { ws, data: parsed.data })
+                task: processEmitter.emit('search', { ws, data: parsed.data }),
               })
           )
           .on(
-            x => x === 'FIND_THREAD',
+            (x) => x === 'FIND_THREAD',
             () =>
               processEmitter.fuseTaskManager({
                 task: processEmitter.emit('find_thread', {
                   ws,
-                  data: parsed.data
-                })
+                  data: parsed.data,
+                }),
               })
           )
           .on(
-            x => x === 'THREAD_LOAD',
+            (x) => x === 'THREAD_LOAD',
             () =>
               processEmitter.fuseTaskManager({
                 task: processEmitter.emit('thread_load', {
                   ws,
-                  data: parsed.data
-                })
+                  data: parsed.data,
+                }),
               })
           )
           .on(
-            x => x === 'ADD_MESSAGE',
+            (x) => x === 'ADD_MESSAGE',
             () =>
               processEmitter.fuseTaskManager({
                 task: processEmitter.emit('add_message', {
                   ws,
-                  data: parsed.data
-                })
+                  data: parsed.data,
+                }),
               })
           )
-          .otherwise(_ => console.log('Nothing to see here.'));
+          .otherwise((_) => console.log('Nothing to see here.'));
       }
     });
 
@@ -122,7 +122,7 @@ module.exports = class Events {
           ws.send(
             JSON.stringify({
               type: 'ERROR',
-              error
+              error,
             })
           );
         } else {
@@ -130,7 +130,7 @@ module.exports = class Events {
             {
               userId: user.id,
               name: data.name,
-              email: data.email
+              email: data.email,
             },
             (profileError, profile) => {}
           );
@@ -144,24 +144,24 @@ module.exports = class Events {
           const userObject = {
             id: data.userId.toString(),
             email: user.email,
-            ws
+            ws,
           };
 
           ws.uid = userObject.id + new Date().getTime().toString();
 
           processEmitter.setClients({ clients: userObject });
 
-          initialThreadsModule({ ws, userId: userObject.id }).catch(_ => {});
+          initialThreadsModule({ ws, userId: userObject.id }).catch((_) => {});
         }
       });
     });
 
     processEmitter.on('login', ({ ws, data }) => {
       loginModule({ ws, email: data.email, password: data.password })
-        .then(result => {
+        .then((result) => {
           processEmitter.setClients({ clients: result.content.userObject });
         })
-        .catch(_ => {});
+        .catch((_) => {});
     });
 
     processEmitter.on('search', ({ ws, data }) => {
@@ -173,8 +173,8 @@ module.exports = class Events {
               JSON.stringify({
                 type: 'GOT_USERS',
                 data: {
-                  users
-                }
+                  users,
+                },
               })
             );
           }
@@ -187,33 +187,33 @@ module.exports = class Events {
         {
           where: {
             users: {
-              inq: data
-            }
-          }
+              inq: data,
+            },
+          },
         },
         (error, thread) => {
           if (!error && thread) {
             ws.send(
               JSON.stringify({
                 type: 'ADD_THREAD',
-                data: thread
+                data: thread,
               })
             );
           } else {
             models.Thread.create(
               {
                 lastUpdated: new Date(),
-                users: data
+                users: data,
               },
               (error2, thread) => {
                 if (!error2 && thread) {
                   processEmitter.clients
-                    .filter(u => thread.users.indexOf(u.id.toString()) > -1)
-                    .map(client => {
+                    .filter((u) => thread.users.indexOf(u.id.toString()) > -1)
+                    .map((client) => {
                       client.ws.send(
                         JSON.stringify({
                           type: 'ADD_THREAD',
-                          data: thread
+                          data: thread,
                         })
                       );
                     });
@@ -230,11 +230,11 @@ module.exports = class Events {
       models.Message.find(
         {
           where: {
-            threadId: data.threadId
+            threadId: data.threadId,
           },
           order: 'date DESC',
           skip: data.skip,
-          limit: 10
+          limit: 10,
         },
         (error2, messages) => {
           if (!error2 && messages) {
@@ -242,7 +242,7 @@ module.exports = class Events {
               JSON.stringify({
                 type: 'GOT_MESSAGES',
                 threadId: data.threadId,
-                messages
+                messages,
               })
             );
           }
@@ -257,14 +257,14 @@ module.exports = class Events {
             if (!error3 && message) {
               processEmitter.clients
                 .filter(
-                  client => thread.users.indexOf(client.id.toString()) > -1
+                  (client) => thread.users.indexOf(client.id.toString()) > -1
                 )
-                .map(client => {
+                .map((client) => {
                   client.ws.send(
                     JSON.stringify({
                       type: 'ADD_MESSAGE_TO_THREAD',
                       threadId: data.threadId,
-                      message
+                      message,
                     })
                   );
                 });

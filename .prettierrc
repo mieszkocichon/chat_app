@@ -3,6 +3,8 @@
   "tabWidth": 2,
   "noMultiSpaces": true,
   "rules": {
+    "printWidth": 120,
+    "trailingComma": "none",
     "commaDangle": [
       2,
       {

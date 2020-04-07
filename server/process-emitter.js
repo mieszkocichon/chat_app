@@ -5,9 +5,9 @@ class ProcessEmitter extends EventEmitter {
   clients = [];
   fuse = null;
 
-  constructor({ low, hard }) {
+  constructor({ low, hight }) {
     super();
-    this.fuse = new Fuse({ low, hard });
+    this.fuse = new Fuse({ low, hight });
   }
 
   setClients({ clients }) {
