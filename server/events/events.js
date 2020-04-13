@@ -121,7 +121,7 @@ module.exports = class Events {
         if (error) {
           ws.send(
             JSON.stringify({
-              type: 'ERROR',
+              type: 'SIGNUP_ERROR',
               error,
             })
           );
@@ -132,7 +132,15 @@ module.exports = class Events {
               name: data.name,
               email: data.email,
             },
-            (profileError, profile) => {}
+            (profileError, profile) => {
+              ws.send(JSON.stringify({
+                type: 'SIGNUP_INFO',
+                payload: {
+                  message: 'You are siggned up now',
+                  statusCode: 0
+                }
+              }))
+            }
           );
         }
       });

@@ -7,7 +7,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "start": "node .",
+    "start": "node ./server/chat-server.js",
     "jest": "jest",
     "posttest": "npm run lint"
   },

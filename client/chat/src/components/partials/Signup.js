@@ -26,6 +26,10 @@ class SignUp extends Component {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
+
+                  this.props.loginErrorClean();
+                  this.props.loginInfoClean();
+
                   if (this.props.socket) {
                     let empty = 0;
                     Object.keys(this.state).map((key) => {
@@ -61,6 +65,12 @@ class SignUp extends Component {
                 <p>
                   Already have an account? <Link to="/login">Login</Link>
                 </p>
+                {this.props.signup_error && this.props.signup_error.message ? (
+                  <p className="text-danger">User already exists</p>
+                ) : null}
+                {this.props.signup_info && this.props.signup_info.message ? (
+                  <p className="text-success">You are siggned up now</p>
+                ) : null}
                 {this.state.error ? (
                   <p className="text-danger">{this.state.error}</p>
                 ) : null}
@@ -155,6 +165,19 @@ const mapStateToProps = (state) => ({
   ...state.chat,
 });
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  loginErrorClean: () => {
+    dispatch({
+      type: 'SIGNUP_ERROR',
+      payload: null,
+    })
+  },
+  loginInfoClean: () => {
+    dispatch({
+      type: 'SIGNUP_INFO',
+      payload: null,
+    })
+  }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

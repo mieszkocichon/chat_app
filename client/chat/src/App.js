@@ -20,6 +20,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+
         <button onClick={e => {
           this.props.logout();
         }}>

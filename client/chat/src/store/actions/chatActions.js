@@ -5,6 +5,7 @@ import * as AuthActions from './authActions';
 export const setupSocket = (token, userId) => {
   return (dispatch) => {
     const socket = new WebSocket('ws://localhost:8080');
+
     socket.onopen = () => {
       if (token) {
         socket.send(
@@ -67,19 +68,37 @@ export const setupSocket = (token, userId) => {
           });
           break;
         }
-        case 'ADD_MESSAGE_TO_THREAD':
-          {
-            dispatch({
-              type: 'ADD_SINGLE_MESSAGE',
-              payload: {
-                threadId: data.threadId,
-                message: data.message,
-              },
-            });
-          }
+        case 'ADD_MESSAGE_TO_THREAD': {
+          dispatch({
+            type: 'ADD_SINGLE_MESSAGE',
+            payload: {
+              threadId: data.threadId,
+              message: data.message,
+            },
+          });
+
           document.getElementById(
             'main-view'
           ).scrollTop = document.getElementById('main-view').scrollHeight;
+          
+          break;
+        }
+        case 'SIGNUP_ERROR': {
+          dispatch({
+            type: 'SIGNUP_ERROR',
+            payload: data.error,
+          })
+
+          break;
+        }
+        case 'SIGNUP_INFO': {
+          dispatch({
+            type: 'SIGNUP_INFO',
+            payload: data.payload
+          })
+
+          break;
+        }
         default:
         // do nothing
       }

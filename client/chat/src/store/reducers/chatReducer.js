@@ -65,6 +65,18 @@ const chat = (state = defaultState, action) => {
         }),
       };
     }
+    case 'SIGNUP_ERROR': {
+      return {
+        ...state,
+        signup_error: action.payload
+      }
+    }
+    case 'SIGNUP_INFO': {
+      return {
+        ...state,
+        signup_info: action.payload
+      }
+    }
 
     default:
       return state;
