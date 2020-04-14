@@ -83,6 +83,8 @@ class SignUp extends Component {
                         className="form-control"
                         placeholder="Name"
                         value={this.state.name}
+                        required
+                        min="2"
                         onChange={(e) =>
                           this.setState({ name: e.target.value })
                         }
@@ -97,6 +99,8 @@ class SignUp extends Component {
                         className="form-control"
                         placeholder="Name"
                         value={this.state.username}
+                        required
+                        min="2"
                         onChange={(e) =>
                           this.setState({ username: e.target.value })
                         }
@@ -111,6 +115,8 @@ class SignUp extends Component {
                         className="form-control"
                         placeholder="Email"
                         value={this.state.email}
+                        required
+                        min="6"
                         onChange={(e) =>
                           this.setState({ email: e.target.value })
                         }
@@ -127,6 +133,8 @@ class SignUp extends Component {
                         className="form-control"
                         placeholder="Password"
                         value={this.state.password}
+                        required
+                        min="3"
                         onChange={(e) =>
                           this.setState({ password: e.target.value })
                         }
@@ -141,6 +149,8 @@ class SignUp extends Component {
                         className="form-control"
                         placeholder="Password (Again)"
                         value={this.state.passwordAgain}
+                        required
+                        min="3"
                         onChange={(e) =>
                           this.setState({ passwordAgain: e.target.value })
                         }
