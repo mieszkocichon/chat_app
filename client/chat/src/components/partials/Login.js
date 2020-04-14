@@ -61,6 +61,8 @@ class Login extends Component {
                     className="form-control login_email_input"
                     placeholder="Email"
                     value={this.state.email}
+                    required
+                    min="6"
                     onChange={(e) => this.setState({ email: e.target.value })}
                   />
                 </div>
@@ -71,6 +73,8 @@ class Login extends Component {
                     className="form-control login_password_input"
                     placeholder="Password"
                     value={this.state.password}
+                    required
+                    min="3"
                     onChange={(e) =>
                       this.setState({ password: e.target.value })
                     }
