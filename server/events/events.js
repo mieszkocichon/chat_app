@@ -112,6 +112,16 @@ module.exports = class Events {
                 }),
               })
           )
+          .on(
+            (x) => x === 'DELETE_USER',
+            () => processEmitter.fuseTaskManager({
+              task: processEmitter.emit('delete_user', {
+                ws,
+                data: parsed.data,
+              })
+            })
+          )
+
           .otherwise((_) => console.log('Nothing to see here.'));
       }
     });
@@ -133,13 +143,15 @@ module.exports = class Events {
               email: data.email,
             },
             (profileError, profile) => {
-              ws.send(JSON.stringify({
-                type: 'SIGNUP_INFO',
-                payload: {
-                  message: 'You are siggned up now',
-                  statusCode: 0
-                }
-              }))
+              ws.send(
+                JSON.stringify({
+                  type: 'SIGNUP_INFO',
+                  payload: {
+                    message: 'You are siggned up now',
+                    statusCode: 0,
+                  },
+                })
+              );
             }
           );
         }
@@ -279,6 +291,30 @@ module.exports = class Events {
             }
           });
         }
+      });
+    });
+
+    processEmitter.on('delete_user', ({ ws, data }) => {
+      const { id } = data;
+
+      models.User.destroyById(id, (error, result) => {
+        if (!error && result) {
+          return ws.send(
+            JSON.stringify({
+              type: 'delete_info',
+              message: 'Deletion of the user proceeded correctly.',
+              statusCode: 0,
+            })
+          )
+        }
+
+        return ws.send(
+          JSON.stringify({
+            type: 'delete_warning',
+            message: 'Deletion of the user proceeded wrong.',
+            statusCode: -1,
+          })
+        )
       });
     });
   }
