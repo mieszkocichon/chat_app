@@ -8,14 +8,12 @@ class Sidebar extends Component {
   };
 
   search = () => {
-    // if (this.props.socket.readyState) {
     this.props.socket.send(
       JSON.stringify({
         type: 'SEARCH',
         data: this.state.search,
       })
     );
-    // }
   };
 
   deleteAccount = () => {
@@ -30,19 +28,24 @@ class Sidebar extends Component {
   }
 
   findOrCreateThread = (id) => {
-    // if (this.props.socket.readyState) {
     this.props.socket.send(
       JSON.stringify({
         type: 'FIND_THREAD',
         data: [this.props.user.id, id],
       })
     );
-    // }
   };
 
   render() {
     return (
       <div className="sidebar">
+
+        {this.props.delete_account_warning.payload && this.props.delete_account_warning.payload.message ? (
+            <div className="alert alert-primary" role="alert">
+              Nie udało się usunąc konta. Spróbuj za chwilę =)
+            </div>
+          ) : null}
+
         <div className="search-container">
           <div className="search-container">
             <input
@@ -108,7 +111,7 @@ class Sidebar extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  ...state.auth,
+  ...state.account,
   ...state.chat,
 });
 

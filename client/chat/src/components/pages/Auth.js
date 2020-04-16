@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import * as AuthActions from '../../store/actions/authActions';
+import * as AuthActions from '../../store/actions/accountActions';
 import Login from '../partials/Login';
 import SignUp from '../partials/Signup';
 
@@ -16,7 +16,7 @@ class Auth extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  ...state.auth,
+  ...state.account,
 });
 
 const mapDispatchToProps = (dispatch) => ({});

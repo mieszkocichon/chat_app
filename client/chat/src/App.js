@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Routem, Link, BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as ChatActions from './store/actions/chatActions';
-import * as AuthActions from './store/actions/authActions';
+import * as AuthActions from './store/actions/accountActions';
 
 import Auth from './components/pages/Auth';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -21,11 +21,6 @@ class App extends React.Component {
     return (
       <div className="App">
 
-        <button onClick={e => {
-          this.props.logout();
-        }}>
-          Log Out
-        </button>
         <BrowserRouter>
           <Switch>
             <Route path="/signup"
@@ -94,7 +89,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.auth,
+  ...state.account,
   ...state.chat
 })
 

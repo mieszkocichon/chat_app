@@ -301,18 +301,22 @@ module.exports = class Events {
         if (!error && result) {
           return ws.send(
             JSON.stringify({
-              type: 'delete_info',
-              message: 'Deletion of the user proceeded correctly.',
-              statusCode: 0,
+              type: 'DELETE_USER_INFO',
+              payload: {
+                message: 'Deletion of the user proceeded correctly.',
+                statusCode: 0,
+              }
             })
           )
         }
 
         return ws.send(
           JSON.stringify({
-            type: 'delete_warning',
-            message: 'Deletion of the user proceeded wrong.',
-            statusCode: -1,
+            type: 'DELETE_USER_WARNING',
+            payload: {
+              message: 'Deletion of the user proceeded wrong.',
+              statusCode: -1,
+            }
           })
         )
       });

@@ -1,4 +1,4 @@
-import * as AuthActions from './authActions';
+import * as AuthActions from './accountActions';
 
 /** global $ */
 
@@ -94,6 +94,22 @@ export const setupSocket = (token, userId) => {
         case 'SIGNUP_INFO': {
           dispatch({
             type: 'SIGNUP_INFO',
+            payload: data.payload
+          })
+
+          break;
+        }
+        case 'DELETE_USER_INFO': {
+          dispatch({
+            type: 'DELETE_USER_INFO',
+            payload: data.payload
+          })
+
+          break;
+        }
+        case 'DELETE_USER_WARNING': {
+          dispatch({
+            type: 'DELETE_USER_WARNING',
             payload: data.payload
           })
 
