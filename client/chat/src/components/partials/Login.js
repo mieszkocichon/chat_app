@@ -51,6 +51,11 @@ class Login extends Component {
                 <p>
                   Don't have an account? <Link to="/signup">Sign up</Link>
                 </p>
+
+                {this.props.login_delete_error && this.props.login_delete_error.payload && this.props.login_delete_error.payload.error ? (
+                  <p className="text-danger">Bad credentials!</p>
+                ) : null}
+
                 {this.state.error ? (
                   <p className="text-danger">{this.state.error}</p>
                 ) : null}

@@ -7,13 +7,6 @@ module.exports = function loginModule({ ws, email, password }) {
   return new Promise((resolve, reject) => {
     models.User.login({ email, password }, (error, result) => {
       if (error) {
-        ws.send(
-          JSON.stringify({
-            type: 'ERROR',
-            error
-          })
-        );
-
         reject({
           msg: error,
           statusCode: -1

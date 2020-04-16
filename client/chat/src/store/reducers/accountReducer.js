@@ -4,6 +4,7 @@ const defaultState = {
   delete_account_warning: {},
   signup_error: {},
   signup_info: {},
+  login_delete_error: {},
 };
 
 const account = (state = defaultState, action) => {
@@ -43,6 +44,17 @@ const account = (state = defaultState, action) => {
       return {
         ...state,
         delete_account_warning: {
+          payload: action.payload
+        }
+      }
+    }
+    case 'LOGIN_ERROR': {
+
+      console.log("11111111111111111");
+
+      return {
+        ...state,
+        login_delete_error: {
           payload: action.payload
         }
       }

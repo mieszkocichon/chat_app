@@ -181,7 +181,16 @@ module.exports = class Events {
         .then((result) => {
           processEmitter.setClients({ clients: result.content.userObject });
         })
-        .catch((_) => {});
+        .catch((error) => {
+          ws.send(
+            JSON.stringify({
+              type: 'LOGIN_ERROR',
+              payload: {
+                error
+              }
+            })
+          );
+        });
     });
 
     processEmitter.on('search', ({ ws, data }) => {

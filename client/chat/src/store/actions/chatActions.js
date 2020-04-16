@@ -115,6 +115,14 @@ export const setupSocket = (token, userId) => {
 
           break;
         }
+        case 'LOGIN_ERROR': {
+          dispatch({
+            type: 'LOGIN_ERROR',
+            payload: data.payload
+          })
+
+          break;
+        }
         default:
         // do nothing
       }
