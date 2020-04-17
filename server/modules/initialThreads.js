@@ -6,7 +6,9 @@ module.exports = function initialThreadsModule({ ws, userId }) {
   return new Promise((resolve, reject) => {
     models.Thread.find(
       {
-        where: {},
+        where: {
+          users: userId
+        },
         include: 'Messages'
       },
       (error, threads) => {

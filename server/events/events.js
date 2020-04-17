@@ -236,6 +236,7 @@ module.exports = class Events {
               },
               (error2, thread) => {
                 if (!error2 && thread) {
+                  // !TODO:
                   processEmitter.clients
                     .filter((u) => thread.users.indexOf(u.id.toString()) > -1)
                     .map((client) => {

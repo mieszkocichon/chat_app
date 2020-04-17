@@ -49,9 +49,6 @@ const account = (state = defaultState, action) => {
       }
     }
     case 'LOGIN_ERROR': {
-
-      console.log("11111111111111111");
-
       return {
         ...state,
         login_delete_error: {
