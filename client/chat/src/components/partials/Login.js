@@ -53,7 +53,7 @@ class Login extends Component {
                 </p>
 
                 {this.props.login_delete_error && this.props.login_delete_error.payload && this.props.login_delete_error.payload.error ? (
-                  <p className="text-danger">Bad credentials!</p>
+                  <p className="text-danger bad-credentials">Bad credentials!</p>
                 ) : null}
 
                 {this.state.error ? (

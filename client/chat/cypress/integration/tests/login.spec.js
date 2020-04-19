@@ -5,30 +5,15 @@ context('Login', () => {
     cy.visit('http://localhost:3000/login');
   });
 
-  it('bad path witch empty email', () => {
+  it('Bad credentials login warning', () => {
+    cy.get('.login_email_input')
+      .type('1swe4rweds@dwas32wz.pl')
+      .should('have.value', '1swe4rweds@dwas32wz.pl');
     cy.get('.login_password_input')
       .type('123123123')
       .should('have.value', '123123123');
     cy.get('form').submit();
+    cy.get('.bad-credentials').should('be.visible');
+    cy.get('.bad-credentials').contains('Bad credentials!');
   });
-
-  // it('bad path witch bad password', () => {
-  //   cy.get('.login_email_input')
-  //     .type('asd32wsddrfeuol@asu0jioew.com')
-  //     .should('have.value', 'asd32wsddrfeuol@asu0jioew.com');
-  //   cy.get('.login_password_input')
-  //     .type('111')
-  //     .should('have.value', '111');
-  //   cy.get('form').submit();
-  // });
-
-  // it('good path', () => {
-  //   cy.get('.login_email_input')
-  //     .type('asd32wsddrfeuol@asu0jioew.com')
-  //     .should('have.value', 'asd32wsddrfeuol@asu0jioew.com');
-  //   cy.get('.login_password_input')
-  //     .type('123123123')
-  //     .should('have.value', '123123123');
-  //   cy.get('form').submit();
-  // });
 });

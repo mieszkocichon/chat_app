@@ -69,7 +69,7 @@ class SignUp extends Component {
                   <p className="text-danger">User already exists</p>
                 ) : null}
                 {this.props.signup_info && this.props.signup_info.message ? (
-                  <p className="text-success">You are siggned up now</p>
+                  <p className="text-success siggned-success">You are siggned up now.</p>
                 ) : null}
                 {this.state.error ? (
                   <p className="text-danger">{this.state.error}</p>
@@ -80,7 +80,7 @@ class SignUp extends Component {
                       <label>Name</label>
                       <input
                         type="name"
-                        className="form-control"
+                        className="form-control signup-name"
                         placeholder="Name"
                         value={this.state.name}
                         required
@@ -96,7 +96,7 @@ class SignUp extends Component {
                       <label>Username</label>
                       <input
                         type="name"
-                        className="form-control"
+                        className="form-control signup-username"
                         placeholder="Name"
                         value={this.state.username}
                         required
@@ -112,7 +112,7 @@ class SignUp extends Component {
                       <label>Email</label>
                       <input
                         type="email"
-                        className="form-control"
+                        className="form-control signup-email"
                         placeholder="Email"
                         value={this.state.email}
                         required
@@ -130,7 +130,7 @@ class SignUp extends Component {
                       <label>Password</label>
                       <input
                         type="password"
-                        className="form-control"
+                        className="form-control signup-password-first"
                         placeholder="Password"
                         value={this.state.password}
                         required
@@ -146,7 +146,7 @@ class SignUp extends Component {
                       <label>Password again</label>
                       <input
                         type="password"
-                        className="form-control"
+                        className="form-control signup-password-second"
                         placeholder="Password (Again)"
                         value={this.state.passwordAgain}
                         required
