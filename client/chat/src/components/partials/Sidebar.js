@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import * as AuthActions from '../../store/actions/accountActions';
 
 class Sidebar extends Component {
   state = {
@@ -64,6 +65,10 @@ class Sidebar extends Component {
           <button className="btn btn-primary" onClick={(_) => this.deleteAccount()}>
             Delete user
           </button>
+
+          <button className="btn btn-primary" onClick={(_) => this.props.logout()}>
+            Logout
+          </button>
         </div>
 
         {this.state.search ? (
@@ -115,7 +120,11 @@ const mapStateToProps = (state) => ({
   ...state.chat,
 });
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => {
+    dispatch(AuthActions.logout())
+  }
+});
 
 export default connect(
   mapStateToProps,

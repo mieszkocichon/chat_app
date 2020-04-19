@@ -96,9 +96,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setupSocket: (token, userId) => {
     dispatch(ChatActions.setupSocket(token, userId));
-  },
-  logout: () => {
-    dispatch(AuthActions.logout())
   }
 })
 
