@@ -12,7 +12,7 @@ context('Message', () => {
 
       cy.get('.search-friend', {timeout: 4000}).type('asd32wsddrfeuol').should('have.value', 'asd32wsddrfeuol');
       cy.get('.search-friend-button').click();
-      cy.get('.asd32wsddrfeuol', {timeout: 2000}).click();
+      cy.get('.0-thread-id', {timeout: 2000}).click();
       cy.get('.chat-input-message').type('Hello!').should('have.value', 'Hello!');
       cy.get('.button-message-send').click();
     });

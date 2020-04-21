@@ -7,6 +7,9 @@ const models = require('../server').models;
 const match = require('../../utils/match');
 
 module.exports = class Events {
+
+  clients = [];
+
   initialize(processEmitter) {
     processEmitter.on('initial_project', () => {
       setImmediate(() => {
@@ -38,18 +41,15 @@ module.exports = class Events {
     processEmitter.on('close_connection', ({ request }) => {
       let clientIndex = -1;
 
-      const clients = processEmitter.clients;
-      clients.map((c, i) => {
+      this.clients.map((c, i) => {
         if ((c) => c.ws._closeCode === request) {
           clientIndex = i;
         }
       });
 
       if (clientIndex > -1) {
-        clients.splice(clientIndex, 1);
+        this.clients.splice(clientIndex, 1);
       }
-
-      processEmitter.setClients({ clients });
     });
 
     processEmitter.on('message', ({ ws, message }) => {
@@ -176,7 +176,7 @@ module.exports = class Events {
 
           ws.uid = userObject.id + new Date().getTime().toString();
 
-          processEmitter.setClients({ clients: userObject });
+          this.clients.push(userObject);
 
           initialThreadsModule({ ws, userId: userObject.id }).catch((_) => {});
         }
@@ -186,7 +186,7 @@ module.exports = class Events {
     processEmitter.on('login', ({ ws, data }) => {
       loginModule({ ws, email: data.email, password: data.password })
         .then((result) => {
-          processEmitter.setClients({ clients: result.content.userObject });
+          this.clients.push(result.content.userObject);
         })
         .catch((error) => {
           ws.send(
@@ -219,6 +219,7 @@ module.exports = class Events {
     });
 
     processEmitter.on('find_thread', ({ ws, data }) => {
+
       models.Thread.findOne(
         {
           where: {
@@ -243,8 +244,9 @@ module.exports = class Events {
               },
               (error2, thread) => {
                 if (!error2 && thread) {
+
                   // !TODO:
-                  processEmitter.clients
+                  this.clients
                     .filter((u) => thread.users.indexOf(u.id.toString()) > -1)
                     .map((client) => {
                       client.ws.send(
@@ -255,6 +257,7 @@ module.exports = class Events {
                       );
                     });
                 } else {
+
                 }
               }
             );
@@ -291,8 +294,8 @@ module.exports = class Events {
       models.Thread.findById(data.threadId, (error2, thread) => {
         if (!error2 && thread) {
           models.Message.upsert(data.message, (error3, message) => {
-            if (!error3 && message) {
-              processEmitter.clients
+            if (!error3 && message && this.clients) {
+              this.clients
                 .filter(
                   (client) => thread.users.indexOf(client.id.toString()) > -1
                 )
@@ -307,6 +310,9 @@ module.exports = class Events {
                 });
             }
           });
+        }
+        else {
+
         }
       });
     });

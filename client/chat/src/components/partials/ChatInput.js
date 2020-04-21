@@ -55,9 +55,7 @@ class ChatInput extends Component {
                     <button className="btn btn-send input-group-append button-message-send">
                         <i className="zmdi zmdi-mail-send"></i>
                     </button>
-
                 </div>
-
             </form>
         )
     }

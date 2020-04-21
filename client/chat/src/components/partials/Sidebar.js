@@ -35,6 +35,9 @@ class Sidebar extends Component {
         data: [this.props.user.id, id],
       })
     );
+
+    // TODO:
+    window.location.reload(); 
   };
 
   render() {
@@ -77,9 +80,9 @@ class Sidebar extends Component {
             {this.props.users &&
               this.props.users
                 .filter((u) => u.id !== this.props.user.id)
-                .map((user) => {
+                .map((user, index) => {
                   return (
-                    <li className={user.name} key={user.id}>
+                    <li className={index + '-thread-id'} key={index + '-thread.id'}>
                       <a
                         onClick={(e) => {
                           e.preventDefault();
@@ -99,7 +102,7 @@ class Sidebar extends Component {
             <label>Messages</label>
             {this.props.threads.map((thread, threadIndex) => {
               return (
-                <li key={threadIndex + '-message-id'}>
+                <li className={threadIndex + '-thread-id'} key={threadIndex + '-thread-id'}>
                   <Link to={`/${thread.id}`}>
                     <i className="zmdi zmdi-account-circle" />
                     <h5>{thread.id}</h5>

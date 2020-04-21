@@ -41,7 +41,7 @@ class ThreadView extends Component {
           .map((thread, threadId) => {
             return (
               <div className="message-container" key={threadId}>
-                {thread.Messages.map((message, id) => {
+                {thread && thread.Messages.map((message, id) => {
                   return (
                     <Message
                       msg={message}
