@@ -46,13 +46,13 @@ class ChatInput extends Component {
                         <input 
                             type="text" 
                             placeholder="Write your message" 
-                            className="form-control" 
+                            className="form-control chat-input-message" 
                             value={this.state.content} 
                             onChange={e => this.setState({content: e.target.value})} 
                         />
                     </div>
 
-                    <button className="btn btn-send input-group-append">
+                    <button className="btn btn-send input-group-append button-message-send">
                         <i className="zmdi zmdi-mail-send"></i>
                     </button>
 

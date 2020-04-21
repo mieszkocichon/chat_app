@@ -13,7 +13,7 @@ context('Login', () => {
       .type('123123123')
       .should('have.value', '123123123');
     cy.get('form').submit();
-    cy.get('.bad-credentials').should('be.visible');
+    cy.get('.bad-credentials', {timeout: 2000}).should('be.visible');
     cy.get('.bad-credentials').contains('Bad credentials!');
   });
 });

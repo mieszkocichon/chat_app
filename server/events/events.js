@@ -10,22 +10,29 @@ module.exports = class Events {
   initialize(processEmitter) {
     processEmitter.on('initial_project', () => {
       setImmediate(() => {
-        const name = 'asd32wsddrfeuol';
-        const email = `${name}@asu0jioew.com`;
-
-        const data = {
-          username: name,
+        const data = [{
+          username: 'asd32wsddrfeuol',
           password: '123123123',
-          email,
-          name,
-        };
+          email: 'asd32wsddrfeuol@asd32wsddrfeuol.com',
+          name: 'asd32wsddrfeuol',
+        }, {
+          username: '43ew43werfw34erft',
+          password: '123123123',
+          email: '43ew43werfw34erft@43ew43werfw34erft.com',
+          name: '43ew43werfw34erft',
+        }];
 
-        models.User.findOrCreate(
-          { where: { email: { like: email } } },
-          data,
-          (_error, _users) => {}
-        );
+        upsert(data[0]);
+        upsert(data[1]);
       });
+
+      const upsert = (data) => {
+        models.User.findOrCreate(
+          { where: { email: { like: data.email } } },
+          data,
+          (_error, _user) => {}
+        );
+      }
     });
 
     processEmitter.on('close_connection', ({ request }) => {

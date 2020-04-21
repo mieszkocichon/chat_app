@@ -50,7 +50,7 @@ class Sidebar extends Component {
         <div className="search-container">
           <div className="search-container">
             <input
-              className="form-control"
+              className="form-control search-friend"
               placeholder="Search..."
               value={this.state.search}
               onChange={(e) => {
@@ -58,7 +58,7 @@ class Sidebar extends Component {
               }}
             />
           </div>
-          <button className="btn btn-primary" onClick={(_) => this.search()}>
+          <button className="btn btn-primary search-friend-button" onClick={(_) => this.search()}>
             Search
           </button>
 
@@ -77,9 +77,9 @@ class Sidebar extends Component {
             {this.props.users &&
               this.props.users
                 .filter((u) => u.id !== this.props.user.id)
-                .map((user, ui) => {
+                .map((user) => {
                   return (
-                    <li key={ui}>
+                    <li className={user.name} key={user.id}>
                       <a
                         onClick={(e) => {
                           e.preventDefault();
