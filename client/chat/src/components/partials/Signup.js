@@ -16,6 +16,44 @@ class SignUp extends Component {
     };
   }
 
+  signUp = (event) => {
+    event.preventDefault();
+
+    this.props.loginErrorClean();
+    this.props.loginInfoClean();
+
+    if (this.props.socket) {
+      let empty = 0;
+      Object.keys(this.state).map((key) => {
+        if (key !== 'error' && this.state[key] === '') {
+          empty += 1;
+        }
+      });
+
+      if (empty > 0) {
+        return this.setState({ error: 'All Fields Required' });
+      } else {
+        if (this.state.password !== this.state.passwordAgain) {
+          return this.setState({
+            error: 'Passwords Must Match ',
+          });
+        }
+      }
+
+      this.props.socket.send(
+        JSON.stringify({
+          type: 'SIGNUP',
+          data: {
+            email: this.state.email,
+            password: this.state.password,
+            name: this.state.name,
+            username: this.state.username,
+          },
+        })
+      );
+    }
+  }
+
   render() {
     return (
       <div className="container">
@@ -23,45 +61,7 @@ class SignUp extends Component {
           <div className="col-md-12">
             <div className="form-wrapper">
               <h3>SignUp</h3>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-
-                  this.props.loginErrorClean();
-                  this.props.loginInfoClean();
-
-                  if (this.props.socket) {
-                    let empty = 0;
-                    Object.keys(this.state).map((key) => {
-                      if (key !== 'error' && this.state[key] === '') {
-                        empty += 1;
-                      }
-                    });
-
-                    if (empty > 0) {
-                      return this.setState({ error: 'All Fields Required' });
-                    } else {
-                      if (this.state.password !== this.state.passwordAgain) {
-                        return this.setState({
-                          error: 'Passwords Must Match ',
-                        });
-                      }
-                    }
-
-                    this.props.socket.send(
-                      JSON.stringify({
-                        type: 'SIGNUP',
-                        data: {
-                          email: this.state.email,
-                          password: this.state.password,
-                          name: this.state.name,
-                          username: this.state.username,
-                        },
-                      })
-                    );
-                  }
-                }}
-              >
+              <form onSubmit={this.signUp}>
                 <p>
                   Already have an account? <Link to="/login">Login</Link>
                 </p>

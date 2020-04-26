@@ -28,11 +28,13 @@ class Sidebar extends Component {
     )
   }
 
-  findOrCreateThread = (id) => {
+  findOrCreateThread = (e, user) => {
+    e.preventDefault();
+
     this.props.socket.send(
       JSON.stringify({
         type: 'FIND_THREAD',
-        data: [this.props.user.id, id],
+        data: [this.props.user.id, user.id],
       })
     );
 
@@ -62,15 +64,15 @@ class Sidebar extends Component {
               }}
             />
           </div>
-          <button className="btn btn-primary search-friend-button" onClick={(_) => this.search()}>
+          <button className="btn btn-primary search-friend-button" onClick={this.search}>
             Search
           </button>
 
-          <button className="btn btn-primary" onClick={(_) => this.deleteAccount()}>
+          <button className="btn btn-primary" onClick={this.deleteAccount}>
             Delete user
           </button>
 
-          <button className="btn btn-primary logout-button" onClick={(_) => this.props.logout()}>
+          <button className="btn btn-primary logout-button" onClick={this.props.logout}>
             Logout
           </button>
         </div>
@@ -85,10 +87,8 @@ class Sidebar extends Component {
                   return (
                     <li className={index + '-thread-id'} key={index + '-thread.id'}>
                       <a
-                        onClick={(e) => {
-                          e.preventDefault();
-                          this.findOrCreateThread(user.id);
-                        }}
+                        href="#"
+                        onClick={(e) => this.findOrCreateThread(e, user)}
                       >
                         <i className="zmdi zmdi-account-circle" />
                         <h5>{user.name}</h5>

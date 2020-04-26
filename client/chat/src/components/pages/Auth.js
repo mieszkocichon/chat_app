@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
-import * as AuthActions from '../../store/actions/accountActions';
+import { withRouter } from 'react-router-dom';
 import Login from '../partials/Login';
 import SignUp from '../partials/Signup';
 

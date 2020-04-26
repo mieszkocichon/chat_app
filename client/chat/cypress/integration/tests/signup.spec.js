@@ -31,7 +31,7 @@ context('Signup', () => {
     cy.get('.login_password_input')
       .type(credentials.user1.password)
       .should('have.value', credentials.user1.password);
-    cy.get('form').submit();
+    cy.get('.btn-primary').click();
   });
 });
   

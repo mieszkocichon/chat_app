@@ -7,23 +7,27 @@ const models = require('../server').models;
 const match = require('../../utils/match');
 
 module.exports = class Events {
-
-  clients = [];
+  constructor() {
+    this.clients = [];
+  }
 
   initialize(processEmitter) {
     processEmitter.on('initial_project', () => {
       setImmediate(() => {
-        const data = [{
-          username: 'asd32wsddrfeuol',
-          password: '123123123',
-          email: 'asd32wsddrfeuol@asd32wsddrfeuol.com',
-          name: 'asd32wsddrfeuol',
-        }, {
-          username: '43ew43werfw34erft',
-          password: '123123123',
-          email: '43ew43werfw34erft@43ew43werfw34erft.com',
-          name: '43ew43werfw34erft',
-        }];
+        const data = [
+          {
+            username: 'asd32wsddrfeuol',
+            password: '123123123',
+            email: 'asd32wsddrfeuol@asd32wsddrfeuol.com',
+            name: 'asd32wsddrfeuol',
+          },
+          {
+            username: '43ew43werfw34erft',
+            password: '123123123',
+            email: '43ew43werfw34erft@43ew43werfw34erft.com',
+            name: '43ew43werfw34erft',
+          },
+        ];
 
         upsert(data[0]);
         upsert(data[1]);
@@ -35,7 +39,7 @@ module.exports = class Events {
           data,
           (_error, _user) => {}
         );
-      }
+      };
     });
 
     processEmitter.on('close_connection', ({ request }) => {
@@ -121,12 +125,13 @@ module.exports = class Events {
           )
           .on(
             (x) => x === 'DELETE_USER',
-            () => processEmitter.fuseTaskManager({
-              task: processEmitter.emit('delete_user', {
-                ws,
-                data: parsed.data,
+            () =>
+              processEmitter.fuseTaskManager({
+                task: processEmitter.emit('delete_user', {
+                  ws,
+                  data: parsed.data,
+                }),
               })
-            })
           )
 
           .otherwise((_) => console.log('Nothing to see here.'));
@@ -193,8 +198,8 @@ module.exports = class Events {
             JSON.stringify({
               type: 'LOGIN_ERROR',
               payload: {
-                error
-              }
+                error,
+              },
             })
           );
         });
@@ -219,7 +224,6 @@ module.exports = class Events {
     });
 
     processEmitter.on('find_thread', ({ ws, data }) => {
-
       models.Thread.findOne(
         {
           where: {
@@ -244,8 +248,6 @@ module.exports = class Events {
               },
               (error2, thread) => {
                 if (!error2 && thread) {
-
-                  // !TODO:
                   this.clients
                     .filter((u) => thread.users.indexOf(u.id.toString()) > -1)
                     .map((client) => {
@@ -257,7 +259,6 @@ module.exports = class Events {
                       );
                     });
                 } else {
-
                 }
               }
             );
@@ -310,9 +311,7 @@ module.exports = class Events {
                 });
             }
           });
-        }
-        else {
-
+        } else {
         }
       });
     });
@@ -328,9 +327,9 @@ module.exports = class Events {
               payload: {
                 message: 'Deletion of the user proceeded correctly.',
                 statusCode: 0,
-              }
+              },
             })
-          )
+          );
         }
 
         return ws.send(
@@ -339,9 +338,9 @@ module.exports = class Events {
             payload: {
               message: 'Deletion of the user proceeded wrong.',
               statusCode: -1,
-            }
+            },
           })
-        )
+        );
       });
     });
   }

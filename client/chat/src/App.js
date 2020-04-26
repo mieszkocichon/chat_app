@@ -1,8 +1,7 @@
 import React from 'react';
-import { Router, Routem, Link, BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as ChatActions from './store/actions/chatActions';
-import * as AuthActions from './store/actions/accountActions';
 
 import Auth from './components/pages/Auth';
 import "bootstrap/dist/css/bootstrap.min.css";

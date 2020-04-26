@@ -4,10 +4,9 @@ const EventEmitter = require('events');
 const Fuse = require('../utils/patterns/fuse');
 
 class ProcessEmitter extends EventEmitter {
-  fuse = null;
-
   constructor({ low, hight }) {
     super();
+    this.fuse = null;
     this.fuse = new Fuse({ low, hight });
   }
 

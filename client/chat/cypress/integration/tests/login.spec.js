@@ -24,6 +24,6 @@ context('Login', () => {
     cy.get('.login_password_input')
       .type('123123123')
       .should('have.value', '123123123');
-    cy.get('form').submit();
+    cy.get('.btn-primary').click();
   });
 });
