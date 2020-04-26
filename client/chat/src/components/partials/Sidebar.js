@@ -70,7 +70,7 @@ class Sidebar extends Component {
             Delete user
           </button>
 
-          <button className="btn btn-primary" onClick={(_) => this.props.logout()}>
+          <button className="btn btn-primary logout-button" onClick={(_) => this.props.logout()}>
             Logout
           </button>
         </div>
