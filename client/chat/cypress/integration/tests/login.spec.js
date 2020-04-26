@@ -16,4 +16,14 @@ context('Login', () => {
     cy.get('.bad-credentials', {timeout: 2000}).should('be.visible');
     cy.get('.bad-credentials').contains('Bad credentials!');
   });
+
+  it('Success login', () => {
+    cy.get('.login_email_input')
+      .type('43ew43werfw34erft@43ew43werfw34erft.com')
+      .should('have.value', '43ew43werfw34erft@43ew43werfw34erft.com');
+    cy.get('.login_password_input')
+      .type('123123123')
+      .should('have.value', '123123123');
+    cy.get('form').submit();
+  });
 });
