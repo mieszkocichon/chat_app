@@ -13,7 +13,7 @@ class ChatInput extends Component {
 
     sendMessage = (e) => {
         e.preventDefault();
-        
+
         const message = {
             threadId: this.props.match.params.threadId,
             userId: this.props.user.id,

@@ -36,8 +36,9 @@ class Sidebar extends Component {
       })
     );
 
-    // TODO:
-    window.location.reload(); 
+    this.setState({
+      search: ''
+    })
   };
 
   render() {

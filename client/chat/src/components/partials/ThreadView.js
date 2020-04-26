@@ -41,19 +41,19 @@ class ThreadView extends Component {
           .map((thread, threadId) => {
             return (
               <div className="message-container" key={threadId}>
-                {thread && thread.Messages.map((message, id) => {
+                {thread && thread.Messages ? thread.Messages.map((message, id) => {
                   return (
                     <Message
                       msg={message}
                       key={id}
                       profile={
-                        thread.profiles.filter(
+                        thread.profiles ? thread.profiles.filter(
                           (p) => p.id === message.userId
-                        )[0]
+                        )[0] : ""
                       }
                     />
                   );
-                })}
+                }) : <div></div>}
               </div>
             );
           })}

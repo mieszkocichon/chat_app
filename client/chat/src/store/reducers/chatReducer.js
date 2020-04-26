@@ -57,7 +57,7 @@ const chat = (state = defaultState, action) => {
           if (thread.id === action.payload.threadId) {
             return {
               ...thread,
-              Messages: thread.Messages.concat(action.payload.message),
+              Messages: thread && thread.Messages ? thread.Messages.concat(action.payload.message) : [action.payload.message]
             };
           } else {
             return thread;
